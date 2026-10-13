@@ -56,7 +56,7 @@ save.addEventListener("click", (e) => {
 const deleteBtns = $$(".bookmark-card__delete");
 const bookmarkCards = $$(".bookmark-card");
 
-for(let i in deleteBtns) {
+/* for(let i in deleteBtns) {
   const deleteBtn = deleteBtns[i];
   
   if(deleteBtn) {
@@ -64,5 +64,43 @@ for(let i in deleteBtns) {
       css(bookmarkCards[i], "display: none;")
     })
   }
-}
+} */
 
+const slides = $$(".slider__slide");
+const dots = $$(".slider__dot");
+
+slides.forEach((ee, ii) => css(ee, "scale: 0; opacity: 0"))
+css(slides[0], "scale: 1; opacity: 1");
+addClass(dots[0], "dot-active");
+
+dots.forEach((e, i) => {
+  e?.addEventListener("click", () => {
+    // all slides + all dots => not active
+    dots.forEach((ee, ii) => rmClass(ee, "dot-active"))
+    slides.forEach((ee, ii) => css(ee, "scale: 0; opacity: 0"))
+    // dot[i] => active 
+    addClass(e, "dot-active")
+    // slide[i] => active
+    // console.log(slides[i]);
+    
+    css(slides[i], "scale: 1; opacity: 1;")
+  })
+});
+
+
+const themeBtn = $("#theme-btn");
+const themeBtnSpan = $("#theme-btn span");
+let themeStatus = true;
+themeBtn.addEventListener("click", () => {
+  if(themeStatus) {
+    document.body.classList.remove("light");
+    document.body.classList.add("dark");
+    themeBtnSpan.textContent = "Dark";
+    themeStatus = false;
+  } else {
+    document.body.classList.remove("dark");
+    document.body.classList.add("light");
+    themeBtnSpan.textContent = "Light";
+    themeStatus = true;
+  }
+})
